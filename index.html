@@ -1,500 +1,1609 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artsy Data Analytics Department - Executive Proposal</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+import React, { useState } from 'react';
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #ffffff;
-            color: #1a1a1a;
-            line-height: 1.5;
-            padding: 40px 20px;
-        }
+const ArtsyDataProposal = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const goToNextSlide = () => {
+    if (currentSlide < slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+  
+  const goToPrevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+  
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+  
+  const slides = [
+    // Slide 1: Introduction + who I am + the structure
+    {
+      title: "Introduction",
+      content: (
+        <div className="flex flex-col justify-center h-full text-center">
+          <div className="mb-8">
+            <h1 className="text-6xl font-bold text-purple-800 mb-4">ARTSY DATA ANALYTICS</h1>
+            <h1 className="text-6xl font-bold text-purple-800 mb-8">DEPARTMENT PROPOSAL</h1>
+            <div className="text-3xl text-gray-600 mb-8">
+              Unlocking $25M Revenue Through Data Intelligence
+            </div>
+          </div>
+          
+          <div className="bg-purple-50 p-8 rounded-lg mx-auto max-w-2xl mb-8">
+            <h3 className="text-3xl font-bold mb-4">Data Analytics Department Proposal</h3>
+            <p className="text-xl text-gray-700 mb-2">Building world-class data capabilities</p>
+            <p className="text-lg text-gray-600 mb-4">Transform editorial-to-commerce conversion through data intelligence</p>
+            <div className="text-lg text-gray-600">
+              <div>• Systematic approach to data maturity transformation</div>
+              <div>• Specialized in editorial-to-commerce conversion optimization</div>
+              <div>• Enterprise-grade data infrastructure and team</div>
+            </div>
+          </div>
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .logo {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: #6b46c1;
-            color: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            color: #666;
-            font-size: 1rem;
-        }
-
-        .executive-summary {
-            background: #f8f8f8;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            border-left: 4px solid #6b46c1;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 25px;
-        }
-
-        .section {
-            padding: 20px;
-            background: #fafafa;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .section h2 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .problem { border-top: 3px solid #dc2626; }
-        .solution { border-top: 3px solid #059669; }
-
-        .metrics {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 15px 0 20px 0;
-        }
-
-        .metric {
-            text-align: center;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .metric-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #6b46c1;
-        }
-
-        .metric-label {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .bullet-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .bullet-list li {
-            padding: 5px 0 5px 20px;
-            position: relative;
-        }
-
-        .bullet-list li:before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #6b46c1;
-            font-weight: bold;
-        }
-
-        .team-budget {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            margin-bottom: 25px;
-        }
-
-        .team-list {
-            background: #fafafa;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .team-member {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .team-member:last-child {
-            border-bottom: none;
-        }
-
-        .roi-box {
-            background: #10b981;
-            color: white;
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .roi-main {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .timeline {
-            background: #f0f0f0;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-
-        .phase {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 15px;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .phase:last-child {
-            border-bottom: none;
-        }
-
-        .phase-time {
-            font-weight: bold;
-            color: #6b46c1;
-        }
-
-        .recommendation {
-            background: #6b46c1;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .recommendation h3 {
-            margin-bottom: 10px;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-                font-size: 10pt;
-            }
-            .container {
-                box-shadow: none;
-                padding: 10px;
-                max-width: 100%;
-            }
-            .main-content {
-                gap: 20px;
-            }
-            .section {
-                padding: 15px;
-            }
-            h1 {
-                font-size: 1.5rem;
-            }
-            h2 {
-                font-size: 1.1rem;
-            }
-            .metric-value {
-                font-size: 1.4rem;
-            }
-            .roi-main {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-content, .team-budget {
-                grid-template-columns: 1fr;
-            }
-            .metrics {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo" style="margin: 0 auto;">A</div>
-            <h1>Data Analytics Department Proposal</h1>
-            <p class="subtitle">Transforming Editorial Excellence into Revenue Growth</p>
-        </header>
-
-        <div class="executive-summary">
-            <strong>Executive Summary:</strong> Artsy's editorial content (15K daily views) converts at 0.3% vs marketplace at 5-6%, 
-            representing a $25M+ annual revenue opportunity. A dedicated data analytics team will unify our content and commerce 
-            systems, implement ML-driven personalization, and increase editorial conversion to 1.2%+ within 12 months.
+          <div className="bg-blue-50 p-6 rounded-lg mx-auto max-w-4xl">
+            <h3 className="text-2xl font-bold mb-4 text-blue-700">Today's Agenda</h3>
+            <div className="grid grid-cols-3 gap-4 text-sm">
+              <div className="space-y-2">
+                <div>1. Introduction & Structure</div>
+                <div>2. What is Artsy?</div>
+                <div>3. The Critical Problem</div>
+                <div>4. User Journey Analysis</div>
+                <div>5. Current Analytics Infrastructure</div>
+              </div>
+              <div className="space-y-2">
+                <div>6. The $25M Opportunity</div>
+                <div>7. Leadership Vision</div>
+                <div>8. Organizational Structure</div>
+                <div>9. Role Descriptions & Costs</div>
+                <div>10. Solution & Strategy</div>
+              </div>
+              <div className="space-y-2">
+                <div>11. Strategic Backlog</div>
+                <div>12. Infrastructure Costs</div>
+                <div>13. Risk Assessment</div>
+                <div>14. ROI Analysis</div>
+                <div>15. Call to Action</div>
+              </div>
+            </div>
+          </div>
         </div>
+      ),
+    },
 
-        <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #0ea5e9;">
-            <strong style="color: #0c4a6e;">Leadership Vision:</strong> Build a transparent, curiosity-driven data culture where insights flow freely, teams collaborate openly, and every decision is backed by data. Our north star: turning editorial excellence into marketplace success.
+    // Slide 2: What Artsy is
+    {
+      title: "What Artsy is",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-5xl font-bold mb-6 text-center">What is Artsy?</h2>
+          <p className="text-2xl text-center mb-12 text-gray-600">The world's largest art marketplace and editorial platform</p>
+          
+          <div className="grid grid-cols-3 gap-12 mb-12">
+            <div className="text-center bg-blue-50 p-8 rounded-lg">
+              <div className="text-6xl font-bold text-blue-600 mb-4">3.2M</div>
+              <div className="text-xl text-gray-700 mb-2">Active Users</div>
+              <div className="text-lg text-blue-500">190+ countries</div>
+            </div>
+            <div className="text-center bg-green-50 p-8 rounded-lg">
+              <div className="text-6xl font-bold text-green-600 mb-4">$10B</div>
+              <div className="text-xl text-gray-700 mb-2">Inventory Value</div>
+              <div className="text-lg text-green-500">2M artworks</div>
+            </div>
+            <div className="text-center bg-purple-50 p-8 rounded-lg">
+              <div className="text-6xl font-bold text-purple-600 mb-4">2.4M</div>
+              <div className="text-xl text-gray-700 mb-2">Monthly Visitors</div>
+              <div className="text-lg text-purple-500">Growing 20% annually</div>
+            </div>
+          </div>
+          
+          <div className="bg-gray-50 p-8 rounded-lg">
+            <h3 className="text-3xl font-bold mb-8 text-center">Two Powerful Platforms</h3>
+            <div className="grid grid-cols-2 gap-12">
+              <div className="text-center">
+                <div className="text-6xl mb-6">🛒</div>
+                <h4 className="text-2xl font-bold mb-4">Marketplace</h4>
+                <p className="text-xl text-gray-600">Users browse and purchase artworks from galleries worldwide</p>
+                <div className="mt-4 text-lg text-gray-500">5.6% conversion rate from SEO landing pages</div>
+              </div>
+              <div className="text-center">
+                <div className="text-6xl mb-6">📰</div>
+                <h4 className="text-2xl font-bold mb-4">Editorial</h4>
+                <p className="text-xl text-gray-600">Premium content about artists, trends, and art world insights</p>
+                <div className="mt-4 text-lg text-gray-500">15,000 daily readers, 8 min avg engagement</div>
+              </div>
+            </div>
+          </div>
         </div>
+      ),
+    },
 
-        <div class="main-content">
-            <div class="section problem">
-                <h2>🔴 The Problem</h2>
-                <ul class="bullet-list">
-                    <li>Editorial and marketplace exist in separate systems</li>
-                    <li>No tracking of user journey from content to purchase</li>
-                    <li>Zero personalization based on reading behavior</li>
-                    <li>Manual processes, no A/B testing framework</li>
-                    <li>Competitors (Artnet, Saatchi) gaining market share</li>
-                </ul>
+    // Slide 3: What the problem
+    {
+      title: "What the problem",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-5xl font-bold mb-8 text-center text-red-600">🚨 THE CRITICAL PROBLEM</h2>
+          
+          <div className="bg-red-50 p-8 rounded-lg mb-8">
+            <h3 className="text-3xl font-bold mb-8 text-red-700 text-center">Massive Conversion Gap</h3>
+            <div className="grid grid-cols-2 gap-16">
+              <div className="text-center">
+                <div className="text-8xl font-bold text-red-600 mb-4">0.3%</div>
+                <div className="text-2xl text-gray-700 mb-2">Editorial Content</div>
+                <div className="text-xl text-gray-500">15,000 daily readers</div>
+              </div>
+              <div className="text-center">
+                <div className="text-8xl font-bold text-green-600 mb-4">5.6%</div>
+                <div className="text-2xl text-gray-700 mb-2">SEO Landing Pages</div>
+                <div className="text-xl text-gray-500">Same user types</div>
+              </div>
+            </div>
+            <div className="text-center mt-8">
+              <div className="text-4xl font-bold text-purple-600 mb-4">18.7X PERFORMANCE GAP</div>
+              <div className="text-2xl text-gray-600">Our editorial content converts 18x worse than it should</div>
+            </div>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg border-2 border-gray-200 mb-6">
+            <h4 className="text-2xl font-bold mb-6 text-center">Current User Journey Breakdown</h4>
+            <div className="flex items-center justify-between">
+              <div className="flex-1 text-center">
+                <div className="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold">1</div>
+                <div className="text-lg font-semibold">Editorial Entry</div>
+                <div className="text-blue-600 font-bold">100% users</div>
+              </div>
+              <div className="w-12 h-2 bg-gray-300"></div>
+              <div className="flex-1 text-center">
+                <div className="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold">2</div>
+                <div className="text-lg font-semibold">Article Reading</div>
+                <div className="text-blue-600 font-bold">85% users</div>
+              </div>
+              <div className="w-12 h-2 bg-red-400"></div>
+              <div className="flex-1 text-center">
+                <div className="w-16 h-16 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold">3</div>
+                <div className="text-lg font-semibold">Article End</div>
+                <div className="text-red-600 font-bold">83% EXIT</div>
+              </div>
+              <div className="w-12 h-2 bg-red-400"></div>
+              <div className="flex-1 text-center">
+                <div className="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold">4</div>
+                <div className="text-lg font-semibold">Manual Nav</div>
+                <div className="text-yellow-600 font-bold">17% users</div>
+              </div>
+              <div className="w-12 h-2 bg-red-400"></div>
+              <div className="flex-1 text-center">
+                <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold">5</div>
+                <div className="text-lg font-semibold">Marketplace</div>
+                <div className="text-green-600 font-bold">0.3% convert</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gray-100 p-6 rounded-lg text-center">
+            <div className="text-2xl font-bold text-gray-700 mb-3">Root Cause: Editorial and marketplace exist in silos</div>
+            <div className="text-xl text-gray-600">Users get lost between content discovery and purchase action</div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 4: The user journey + Objective + Goals
+    {
+      title: "User Journey + Objectives + Goals",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-4xl font-bold mb-6 text-center">🎯 USER JOURNEY + OBJECTIVES</h2>
+          
+          <div className="bg-blue-50 p-6 rounded-lg mb-6">
+            <h3 className="text-2xl font-bold mb-4 text-blue-700 text-center">Our Objectives & Goals</h3>
+            <div className="grid grid-cols-3 gap-6 text-center">
+              <div>
+                <div className="text-3xl font-bold text-red-600 mb-2">Primary Goal</div>
+                <div className="text-lg text-gray-700">Bridge editorial-marketplace gap</div>
+                <div className="text-sm text-gray-500">Increase conversion from 0.3% to 1.2%</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-green-600 mb-2">Revenue Target</div>
+                <div className="text-lg text-gray-700">$25M annual impact</div>
+                <div className="text-sm text-gray-500">4x improvement in editorial ROI</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-purple-600 mb-2">Strategic Goal</div>
+                <div className="text-lg text-gray-700">Data-driven platform</div>
+                <div className="text-sm text-gray-500">Enterprise analytics foundation</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 mb-6">
+            <div className="bg-red-50 p-6 rounded-lg">
+              <h3 className="text-2xl font-bold mb-4 text-red-700 text-center">Current Journey (Disconnected)</h3>
+              <div className="flex items-center justify-between">
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">1</div>
+                  <div className="text-lg font-semibold">Editorial Entry</div>
+                  <div className="text-gray-600">Search/social</div>
+                </div>
+                <div className="w-8 h-2 bg-gray-300"></div>
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">2</div>
+                  <div className="text-lg font-semibold">Article Reading</div>
+                  <div className="text-gray-600">8 min avg time</div>
+                </div>
+                <div className="w-8 h-2 bg-red-400"></div>
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">3</div>
+                  <div className="text-lg font-semibold">Article End</div>
+                  <div className="text-red-600 font-bold">High exit</div>
+                </div>
+                <div className="w-8 h-2 bg-red-400"></div>
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-yellow-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">4</div>
+                  <div className="text-lg font-semibold">Manual Navigation</div>
+                  <div className="text-gray-600">If they stay</div>
+                </div>
+                <div className="w-8 h-2 bg-red-400"></div>
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-gray-400 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">5</div>
+                  <div className="text-lg font-semibold">Marketplace</div>
+                  <div className="text-red-600 font-bold">0.3% convert</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-2xl font-bold mb-4 text-green-700 text-center">Target Journey (Integrated)</h3>
+              <div className="flex items-center justify-between">
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">1</div>
+                  <div className="text-lg font-semibold">Editorial Entry</div>
+                  <div className="text-gray-600">Personalized</div>
+                </div>
+                <div className="w-8 h-2 bg-green-400"></div>
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">2</div>
+                  <div className="text-lg font-semibold">Smart Article</div>
+                  <div className="text-gray-600">Contextual content</div>
+                </div>
+                <div className="w-8 h-2 bg-green-400"></div>
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">3</div>
+                  <div className="text-lg font-semibold">Artist Works</div>
+                  <div className="text-gray-600">Embedded suggestions</div>
+                </div>
+                <div className="w-8 h-2 bg-green-400"></div>
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">4</div>
+                  <div className="text-lg font-semibold">Seamless Bridge</div>
+                  <div className="text-gray-600">Smart recommendations</div>
+                </div>
+                <div className="w-8 h-2 bg-green-400"></div>
+                <div className="flex-1 text-center">
+                  <div className="w-14 h-14 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">5</div>
+                  <div className="text-lg font-semibold">Marketplace</div>
+                  <div className="text-green-600 font-bold">Target: 1.2%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-yellow-50 p-6 rounded-lg">
+            <h4 className="text-2xl font-bold mb-4 text-center text-yellow-700">Critical Success Metrics</h4>
+            <div className="grid grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-2xl font-bold text-blue-600">Editorial CTR</div>
+                <div className="text-gray-600">Content to marketplace</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-green-600">User Journey</div>
+                <div className="text-gray-600">End-to-end tracking</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-purple-600">Personalization</div>
+                <div className="text-gray-600">ML-driven recommendations</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-orange-600">Revenue Impact</div>
+                <div className="text-gray-600">$25M annual target</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 5: Current analytic infrastructure + ARTSY DATA MATURITY ASSESSMENT
+    {
+      title: "Current Analytics Infrastructure",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-4xl font-bold mb-6 text-center">📊 ARTSY DATA MATURITY ASSESSMENT</h2>
+          <p className="text-xl text-center mb-8 text-gray-600">Current technical limitations and infrastructure gaps</p>
+          
+          <div className="bg-red-50 p-6 rounded-lg mb-8">
+            <h3 className="font-bold text-2xl mb-6 text-red-700 text-center">Critical Data Infrastructure Reality</h3>
+            <div className="grid grid-cols-2 gap-8">
+              <div>
+                <h4 className="font-bold text-red-600 mb-4 text-xl">What We Have:</h4>
+                <div className="space-y-3 text-lg">
+                  <div>• <strong>Google Analytics only</strong> - basic web metrics</div>
+                  <div>• <strong>Manual calculations</strong> - no automation</div>
+                  <div>• <strong>No real-time tracking</strong> - can't segment users live</div>
+                  <div>• <strong>Siloed systems</strong> - editorial and marketplace separate</div>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-bold text-green-600 mb-4 text-xl">What We Need:</h4>
+                <div className="space-y-3 text-lg">
+                  <div>• <strong>Real-time user segmentation</strong> for personalization</div>
+                  <div>• <strong>Cross-platform event tracking</strong> (web + mobile)</div>
+                  <div>• <strong>Live user journey mapping</strong> editorial → marketplace</div>
+                  <div>• <strong>Integrated data warehouse</strong> for unified analytics</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg border-2 border-gray-200 mb-6">
+            <h3 className="font-bold text-2xl mb-6 text-center">Data Maturity Assessment</h3>
+            <div className="grid grid-cols-1 gap-4">
+              <div className="flex justify-between items-center p-4 bg-gray-50 rounded">
+                <div>
+                  <h4 className="font-bold text-lg">Architecture / Data Model</h4>
+                  <p className="text-gray-600">Data consumable and scaled</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className="text-red-600 font-medium">Siloed</span>
+                  <div className="w-32 bg-gray-200 rounded-full h-3">
+                    <div className="bg-red-500 h-3 rounded-full w-1/4"></div>
+                  </div>
+                  <span className="text-green-600 font-medium">Domain Driven</span>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center p-4 bg-gray-50 rounded">
+                <div>
+                  <h4 className="font-bold text-lg">Data and Reporting</h4>
+                  <p className="text-gray-600">Near real-time availability</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className="text-red-600 font-medium">Manual GA</span>
+                  <div className="w-32 bg-gray-200 rounded-full h-3">
+                    <div className="bg-red-500 h-3 rounded-full w-1/8"></div>
+                  </div>
+                  <span className="text-green-600 font-medium">Real-time</span>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center p-4 bg-gray-50 rounded">
+                <div>
+                  <h4 className="font-bold text-lg">AI & Data Products</h4>
+                  <p className="text-gray-600">Scalable platform products</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className="text-red-600 font-medium">Non-existent</span>
+                  <div className="w-32 bg-gray-200 rounded-full h-3">
+                    <div className="bg-red-500 h-3 rounded-full w-0"></div>
+                  </div>
+                  <span className="text-green-600 font-medium">Value Focused</span>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center p-4 bg-gray-50 rounded">
+                <div>
+                  <h4 className="font-bold text-lg">Organization</h4>
+                  <p className="text-gray-600">Talent, skills, culture</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className="text-red-600 font-medium">No Data Team</span>
+                  <div className="w-32 bg-gray-200 rounded-full h-3">
+                    <div className="bg-red-500 h-3 rounded-full w-0"></div>
+                  </div>
+                  <span className="text-green-600 font-medium">Global Team</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg text-center">
+            <h3 className="font-bold text-2xl mb-4 text-yellow-700">Critical Technical Gap</h3>
+            <div className="text-xl text-gray-700">
+              <strong>Current:</strong> Google Analytics + manual calculation = no real-time user intelligence<br/>
+              <strong>Impact:</strong> Cannot show personalized content, recommendations, or targeted experiences in real-time
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 6: THE $25M OPPORTUNITY
+    {
+      title: "The $25M Opportunity",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-5xl font-bold mb-8 text-center text-green-600">💰 THE $25M OPPORTUNITY</h2>
+          
+          <div className="bg-green-50 p-8 rounded-lg mb-8">
+            <h3 className="text-3xl font-bold mb-8 text-green-700 text-center">Revenue Impact Calculation</h3>
+            <div className="grid grid-cols-3 gap-8 text-center mb-8">
+              <div className="bg-white p-8 rounded-lg border-2 border-gray-200">
+                <div className="text-2xl font-bold mb-2">Current State</div>
+                <div className="text-6xl font-bold text-red-600 my-4">0.3%</div>
+                <div className="text-xl text-gray-600">Editorial conversion rate</div>
+              </div>
+              <div className="bg-white p-8 rounded-lg border-2 border-gray-200">
+                <div className="text-2xl font-bold mb-2">Target State</div>
+                <div className="text-6xl font-bold text-green-600 my-4">1.2%</div>
+                <div className="text-xl text-gray-600">Data-driven conversion</div>
+              </div>
+              <div className="bg-white p-8 rounded-lg border-2 border-gray-200">
+                <div className="text-2xl font-bold mb-2">Revenue Uplift</div>
+                <div className="text-6xl font-bold text-purple-600 my-4">4X</div>
+                <div className="text-xl text-gray-600">Improvement factor</div>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-600 mb-4">15K daily readers × 365 days × 4X conversion = $25M annually</div>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 p-8 rounded-lg">
+            <h4 className="font-bold mb-6 text-blue-700 text-2xl text-center">Why This Will Work</h4>
+            <div className="grid grid-cols-2 gap-12 text-xl">
+              <div className="space-y-4">
+                <div>• Users spend <strong>8 minutes per article</strong> (3x industry average)</div>
+                <div>• <strong>67% of editorial readers</strong> are potential buyers</div>
+                <div>• <strong>$10B inventory</strong> ready to unlock</div>
+              </div>
+              <div className="space-y-4">
+                <div>• <strong>20% annual user growth</strong> momentum</div>
+                <div>• <strong>Premium editorial content</strong> quality</div>
+                <div>• <strong>No competitors</strong> solving this problem</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 7: Leadership vision for the data team
+    {
+      title: "Leadership Vision",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-4xl font-bold mb-6 text-center text-purple-600">🚀 LEADERSHIP VISION</h2>
+          <p className="text-center text-xl text-gray-600 mb-8">Transforming Artsy into an intelligent, data-driven art platform</p>
+          
+          <div className="bg-purple-50 p-8 rounded-lg mb-8">
+            <h3 className="text-3xl font-bold mb-6 text-purple-700 text-center">Data Analytics Leadership Vision</h3>
+            <div className="grid grid-cols-2 gap-8">
+              <div>
+                <h4 className="font-bold text-purple-600 mb-4 text-2xl">Strategic Leadership</h4>
+                <div className="space-y-3 text-lg">
+                  <div>• <strong>Transform Artsy</strong> from intuition-driven to intelligence-driven decisions</div>
+                  <div>• <strong>Build enterprise data foundation</strong> that scales with 20% annual growth</div>
+                  <div>• <strong>Bridge the editorial-marketplace gap</strong> through seamless data integration</div>
+                  <div>• <strong>Establish data governance</strong> and privacy-first culture</div>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-bold text-purple-600 mb-4 text-2xl">Business Impact</h4>
+                <div className="space-y-3 text-lg">
+                  <div>• <strong>$25M revenue impact</strong> through conversion optimization</div>
+                  <div>• <strong>Real-time personalization</strong> for 3.2M users</div>
+                  <div>• <strong>Predictive analytics</strong> for content and commerce strategies</div>
+                  <div>• <strong>Self-service analytics</strong> empowering all teams</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-6 mb-6">
+            <div className="bg-blue-50 p-6 rounded-lg text-center">
+              <div className="text-4xl mb-4">🎯</div>
+              <h4 className="font-bold text-blue-600 mb-2 text-xl">Year 1: Foundation</h4>
+              <div className="text-gray-700">Build core team, infrastructure, and achieve 2x conversion improvement</div>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg text-center">
+              <div className="text-4xl mb-4">🚀</div>
+              <h4 className="font-bold text-green-600 mb-2 text-xl">Year 2: Scale</h4>
+              <div className="text-gray-700">Advanced ML, international expansion analytics, $50M+ impact</div>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg text-center">
+              <div className="text-4xl mb-4">🌟</div>
+              <h4 className="font-bold text-purple-600 mb-2 text-xl">Year 3: Innovation</h4>
+              <div className="text-gray-700">AI-powered art discovery, predictive market trends, industry leadership</div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg">
+            <h4 className="font-bold mb-4 text-yellow-700 text-2xl text-center">Leadership Principles</h4>
+            <div className="grid grid-cols-4 gap-4 text-center">
+              <div>
+                <div className="font-bold text-yellow-600">Data Democracy</div>
+                <div className="text-sm text-gray-600">Everyone can access insights</div>
+              </div>
+              <div>
+                <div className="font-bold text-yellow-600">Privacy First</div>
+                <div className="text-sm text-gray-600">User trust is paramount</div>
+              </div>
+              <div>
+                <div className="font-bold text-yellow-600">Business Impact</div>
+                <div className="text-sm text-gray-600">Every project drives revenue</div>
+              </div>
+              <div>
+                <div className="font-bold text-yellow-600">Continuous Learning</div>
+                <div className="text-sm text-gray-600">Iterate, measure, improve</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 8: Organizational structure
+    {
+      title: "Organizational Structure",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-4xl font-bold mb-6 text-center">👥 ORGANIZATIONAL STRUCTURE</h2>
+          <p className="text-center text-xl text-gray-600 mb-6">Clear reporting relationships and team hierarchy</p>
+          
+          <div className="bg-blue-50 p-6 rounded-lg mb-6">
+            <h3 className="text-xl font-bold mb-4 text-blue-700 text-center">Organization Chart & Reporting Structure</h3>
+            
+            {/* Organizational Chart with Clear Arrows */}
+            <div className="flex flex-col items-center space-y-4">
+              {/* Top Level */}
+              <div className="bg-purple-500 text-white px-6 py-3 rounded font-bold text-center">
+                <div className="text-lg">Data Science Manager</div>
+                <div className="text-sm font-normal">8+ years • Team Leadership • ML Strategy • Stakeholder Management</div>
+                <div className="text-xs font-normal italic">→ Reports to: Chief Data Officer (existing)</div>
+              </div>
+              
+              {/* Arrow Down */}
+              <div className="text-3xl text-gray-600">↓</div>
+              
+              {/* Third Level */}
+              <div className="flex space-x-8">
+                <div className="bg-green-500 text-white px-4 py-3 rounded font-bold text-center">
+                  <div>Senior ML Engineer</div>
+                  <div className="text-sm font-normal">5-7 years • ML Development Lead</div>
+                </div>
+                <div className="bg-orange-500 text-white px-4 py-3 rounded font-bold text-center">
+                  <div>Analytics Engineer</div>
+                  <div className="text-sm font-normal">4-6 years • Infrastructure Lead</div>
+                </div>
+              </div>
+              
+              {/* Arrow Down from Analytics Engineer */}
+              <div className="flex space-x-8">
+                <div className="w-32 text-center"></div>
+                <div className="text-3xl text-gray-600">↓</div>
+              </div>
+              
+              {/* Fourth Level */}
+              <div className="flex space-x-8">
+                <div className="bg-pink-500 text-white px-4 py-3 rounded font-bold text-center">
+                  <div>Data Analyst</div>
+                  <div className="text-sm font-normal">3-5 years • Insights & Reporting</div>
+                </div>
+                <div className="bg-yellow-500 text-white px-4 py-3 rounded font-bold text-center">
+                  <div>Product Analyst</div>
+                  <div className="text-sm font-normal">2-4 years • A/B Tests & Dashboards</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-8">
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-xl font-bold mb-4 text-green-700 text-center">Reporting Chain</h3>
+              <div className="space-y-3 text-lg">
+                <div>• <strong>Chief Data Officer (existing)</strong></div>
+                <div>&nbsp;&nbsp;→ <strong>Data Science Manager (8+ years)</strong></div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;→ Senior ML Engineer (5-7 years)</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;→ Analytics Engineer (4-6 years)</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Data Analyst (3-5 years)</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Product Analyst (2-4 years)</div>
+              </div>
+            </div>
+
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-xl font-bold mb-4 text-purple-700 text-center">Cross-Functional Collaboration</h3>
+              <div className="space-y-3 text-lg">
+                <div>• <strong>Product Team:</strong> Daily collaboration on user analytics</div>
+                <div>• <strong>Engineering:</strong> Data pipeline development</div>
+                <div>• <strong>Editorial:</strong> Content optimization insights</div>
+                <div>• <strong>Marketing:</strong> Campaign performance analysis</div>
+                <div>• <strong>Executive:</strong> Strategic business intelligence</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 9: Role Descriptions
+    {
+      title: "Role Descriptions",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-4xl font-bold mb-6 text-center">👨‍💼 DETAILED ROLE DESCRIPTIONS</h2>
+          <p className="text-center text-lg text-gray-600 mb-6">Understanding each team member's expertise and contribution</p>
+          
+          <div className="grid grid-cols-1 gap-6 mb-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center mr-4 text-xl font-bold">1</div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-blue-700">Data Science Manager</h3>
+                  <div className="text-lg text-gray-600">8+ years experience • Strategic Leadership & Technical Direction</div>
+                </div>
+                <div className="text-3xl font-bold text-blue-600">$180K</div>
+              </div>
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-bold text-blue-600 mb-2 text-lg">Core Expertise</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Advanced machine learning and statistical modeling</li>
+                    <li>• Data architecture and infrastructure design</li>
+                    <li>• Cross-functional stakeholder management</li>
+                    <li>• Team building and technical mentoring</li>
+                    <li>• Business strategy translation to technical roadmaps</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-600 mb-2 text-lg">Key Contributions</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Leads the editorial-marketplace integration strategy</li>
+                    <li>• Defines KPIs and success metrics for $25M target</li>
+                    <li>• Manages relationships with Product, Engineering, Editorial teams</li>
+                    <li>• Drives hiring and team development initiatives</li>
+                    <li>• Reports directly to Chief Data Officer on progress</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-green-50 p-6 rounded-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center mr-4 text-xl font-bold">2</div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-green-700">Senior ML Engineer</h3>
+                  <div className="text-lg text-gray-600">5-7 years experience • Machine Learning Systems & Algorithms</div>
+                </div>
+                <div className="text-3xl font-bold text-green-600">$160K</div>
+              </div>
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-bold text-green-600 mb-2 text-lg">Core Expertise</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Deep learning and recommendation systems</li>
+                    <li>• Real-time ML pipeline development</li>
+                    <li>• Python, TensorFlow, scikit-learn mastery</li>
+                    <li>• A/B testing and experimentation frameworks</li>
+                    <li>• Model deployment and monitoring</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-green-600 mb-2 text-lg">Key Contributions</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Develops personalized artwork recommendation algorithms</li>
+                    <li>• Builds predictive models for user conversion</li>
+                    <li>• Implements real-time ML systems for content optimization</li>
+                    <li>• Creates user segmentation and behavioral analysis models</li>
+                    <li>• Optimizes editorial content suggestions based on user preferences</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-orange-50 p-4 rounded-lg">
+              <div className="flex items-center mb-3">
+                <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">3</div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-orange-700">Analytics Engineer</h3>
+                  <div className="text-sm text-gray-600">4-6 years • Data Infrastructure</div>
+                </div>
+                <div className="text-xl font-bold text-orange-600">$140K</div>
+              </div>
+              <div className="space-y-2">
+                <div>
+                  <h4 className="font-bold text-orange-600 text-sm">Expertise</h4>
+                  <ul className="text-xs space-y-1">
+                    <li>• SQL, Python, dbt proficiency</li>
+                    <li>• Data warehouse design (Snowflake, BigQuery)</li>
+                    <li>• ETL pipeline development</li>
+                    <li>• Data quality and governance</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-orange-600 text-sm">Contributions</h4>
+                  <ul className="text-xs space-y-1">
+                    <li>• Builds data pipelines connecting editorial and marketplace</li>
+                    <li>• Ensures data quality and consistency across platforms</li>
+                    <li>• Implements real-time event tracking systems</li>
+                    <li>• Creates unified data models for analytics</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-pink-50 p-4 rounded-lg">
+              <div className="flex items-center mb-3">
+                <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">4</div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-pink-700">Data Analyst</h3>
+                  <div className="text-sm text-gray-600">3-5 years • Insights & Reporting</div>
+                </div>
+                <div className="text-xl font-bold text-pink-600">$120K</div>
+              </div>
+              <div className="space-y-2">
+                <div>
+                  <h4 className="font-bold text-pink-600 text-sm">Expertise</h4>
+                  <ul className="text-xs space-y-1">
+                    <li>• Advanced SQL and statistical analysis</li>
+                    <li>• Data visualization (Looker, Tableau)</li>
+                    <li>• User journey analysis</li>
+                    <li>• Funnel optimization techniques</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-pink-600 text-sm">Contributions</h4>
+                  <ul className="text-xs space-y-1">
+                    <li>• Analyzes editorial engagement and conversion patterns</li>
+                    <li>• Creates executive dashboards and KPI reporting</li>
+                    <li>• Identifies user behavior trends and opportunities</li>
+                    <li>• Supports conversion rate optimization initiatives</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-yellow-50 p-4 rounded-lg">
+              <div className="flex items-center mb-3">
+                <div className="w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">5</div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-yellow-700">Product Analyst</h3>
+                  <div className="text-sm text-gray-600">2-4 years • Experimentation</div>
+                </div>
+                <div className="text-xl font-bold text-yellow-600">$110K</div>
+              </div>
+              <div className="space-y-2">
+                <div>
+                  <h4 className="font-bold text-yellow-600 text-sm">Expertise</h4>
+                  <ul className="text-xs space-y-1">
+                    <li>• A/B testing design and analysis</li>
+                    <li>• Product analytics frameworks</li>
+                    <li>• User experience optimization</li>
+                    <li>• Feature impact measurement</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-yellow-600 text-sm">Contributions</h4>
+                  <ul className="text-xs space-y-1">
+                    <li>• Designs and runs conversion optimization experiments</li>
+                    <li>• Measures impact of new features and initiatives</li>
+                    <li>• Tracks user engagement across editorial and marketplace</li>
+                    <li>• Provides actionable insights for product improvements</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-100 p-6 rounded-lg mt-6">
+            <h4 className="font-bold mb-4 text-gray-700 text-2xl text-center">Total Team Investment</h4>
+            <div className="grid grid-cols-3 gap-8 text-center">
+              <div>
+                <div className="text-3xl font-bold text-purple-600 mb-2">$710K</div>
+                <div className="text-lg font-semibold">Base Salaries</div>
+                <div className="text-sm text-gray-600">All 5 team members</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-blue-600 mb-2">$178K</div>
+                <div className="text-lg font-semibold">Benefits & Overhead</div>
+                <div className="text-sm text-gray-600">25% of base salaries</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-green-600 mb-2">$888K</div>
+                <div className="text-lg font-semibold">Total Personnel Cost</div>
+                <div className="text-sm text-gray-600">Annual investment</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 10: Solution and strategy
+    {
+      title: "Solution and Strategy",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-5xl font-bold mb-8 text-center">🎯 SOLUTION & STRATEGY</h2>
+          
+          <div className="bg-blue-50 p-8 rounded-lg mb-8">
+            <h3 className="text-3xl font-bold mb-6 text-blue-700 text-center">Comprehensive Data Transformation</h3>
+            <div className="text-2xl text-gray-700 text-center">
+              Systematic evolution across all data maturity dimensions to unlock $25M revenue
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-8 mb-8">
+            <div className="bg-red-50 p-8 rounded-lg">
+              <h4 className="font-bold mb-6 text-red-700 text-2xl">Critical Gaps We'll Fill</h4>
+              <div className="space-y-4 text-lg">
+                <div>• <strong>No data organization</strong> → Expert 6-person team</div>
+                <div>• <strong>Manual reporting</strong> → Real-time insights platform</div>
+                <div>• <strong>Siloed systems</strong> → Integrated data architecture</div>
+                <div>• <strong>No personalization</strong> → ML-driven recommendations</div>
+                <div>• <strong>Limited analytics</strong> → Enterprise-grade intelligence</div>
+              </div>
+            </div>
+            
+            <div className="bg-green-50 p-8 rounded-lg">
+              <h4 className="font-bold mb-6 text-green-700 text-2xl">Platform We'll Build</h4>
+              <div className="space-y-4 text-lg">
+                <div>• <strong>ML recommendation engine</strong> for personalization</div>
+                <div>• <strong>Real-time user journey tracking</strong></div>
+                <div>• <strong>Editorial-marketplace integration</strong> layer</div>
+                <div>• <strong>Automated insights</strong> and anomaly detection</div>
+                <div>• <strong>Self-service analytics</strong> for all teams</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-purple-50 p-6 rounded-lg mb-6">
+            <h4 className="font-bold mb-4 text-purple-700 text-2xl text-center">4-Phase Strategy</h4>
+            <div className="grid grid-cols-4 gap-6 text-center text-lg">
+              <div>
+                <div className="text-3xl font-bold text-red-600 mb-2">Phase 1</div>
+                <div className="text-gray-600 font-bold">Foundation</div>
+                <div className="text-sm text-gray-500">Months 1-3</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-yellow-600 mb-2">Phase 2</div>
+                <div className="text-gray-600 font-bold">Integration</div>
+                <div className="text-sm text-gray-500">Months 4-6</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-green-600 mb-2">Phase 3</div>
+                <div className="text-gray-600 font-bold">Intelligence</div>
+                <div className="text-sm text-gray-500">Months 7-9</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-purple-600 mb-2">Phase 4</div>
+                <div className="text-gray-600 font-bold">Scale</div>
+                <div className="text-sm text-gray-500">Months 10-12</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-yellow-50 p-6 rounded-lg text-center">
+            <div className="text-2xl font-bold text-yellow-700 mb-3">
+              Success Metrics: From 0.3% to 1.2% conversion
+            </div>
+            <div className="text-xl text-gray-600">
+              Enterprise-grade data foundation enabling sustainable competitive advantage
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 11: Backlog
+    {
+      title: "Strategic Backlog",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-4xl font-bold mb-4 text-center">📋 STRATEGIC BACKLOG</h2>
+          <p className="text-center text-lg text-gray-600 mb-6">Prioritized roadmap with clear business impact and timelines</p>
+          
+          <div className="bg-blue-50 p-4 rounded-lg mb-6">
+            <h3 className="text-lg font-bold mb-3 text-blue-700 text-center">Executive Priority Framework</h3>
+            <div className="grid grid-cols-4 gap-3 text-center text-sm">
+              <div className="bg-white p-3 rounded border">
+                <div className="text-lg font-bold text-red-600">P0 - Critical</div>
+                <div className="text-xs text-gray-600">Revenue blocking</div>
+              </div>
+              <div className="bg-white p-3 rounded border">
+                <div className="text-lg font-bold text-orange-600">P1 - High</div>
+                <div className="text-xs text-gray-600">Revenue driving</div>
+              </div>
+              <div className="bg-white p-3 rounded border">
+                <div className="text-lg font-bold text-blue-600">P2 - Medium</div>
+                <div className="text-xs text-gray-600">Efficiency gains</div>
+              </div>
+              <div className="bg-white p-3 rounded border">
+                <div className="text-lg font-bold text-gray-600">P3 - Low</div>
+                <div className="text-xs text-gray-600">Future value</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="bg-red-50 p-4 rounded-lg">
+              <h4 className="font-bold text-red-700 mb-2">🏗️ PHASE 1: FOUNDATION (Months 1-3)</h4>
+              <div className="space-y-1 text-xs">
+                <div className="flex justify-between">
+                  <span>• Data infrastructure & cloud architecture</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Core team hiring (Data Science Manager + ML Engineer)</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• User tracking implementation</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Data governance framework</span>
+                  <span className="text-orange-500 font-bold">P1</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Stakeholder alignment & KPI definition</span>
+                  <span className="text-orange-500 font-bold">P1</span>
+                </div>
+              </div>
+              <div className="mt-2 text-center">
+                <div className="text-sm font-bold text-red-600">Target: Infrastructure operational</div>
+              </div>
+            </div>
+
+            <div className="bg-yellow-50 p-4 rounded-lg">
+              <h4 className="font-bold text-yellow-700 mb-2">🔗 PHASE 2: INTEGRATION (Months 4-6)</h4>
+              <div className="space-y-1 text-xs">
+                <div className="flex justify-between">
+                  <span>• Editorial-marketplace data integration</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Complete team hiring (Analytics Engineer)</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• User journey analytics & conversion tracking</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• A/B testing framework</span>
+                  <span className="text-orange-500 font-bold">P1</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Basic content recommendation engine</span>
+                  <span className="text-orange-500 font-bold">P1</span>
+                </div>
+              </div>
+              <div className="mt-2 text-center">
+                <div className="text-sm font-bold text-yellow-600">Target: 1.5x conversion (0.3% → 0.45%)</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="bg-green-50 p-4 rounded-lg">
+              <h4 className="font-bold text-green-700 mb-2">🤖 PHASE 3: INTELLIGENCE (Months 7-9)</h4>
+              <div className="space-y-1 text-xs">
+                <div className="flex justify-between">
+                  <span>• Advanced ML recommendation algorithms</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Complete hiring (Data + Product Analysts)</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Personalized editorial content delivery</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Predictive user behavior modeling</span>
+                  <span className="text-orange-500 font-bold">P1</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Dynamic artwork suggestion engine</span>
+                  <span className="text-orange-500 font-bold">P1</span>
+                </div>
+              </div>
+              <div className="mt-2 text-center">
+                <div className="text-sm font-bold text-green-600">Target: 2.5x conversion (0.3% → 0.75%)</div>
+              </div>
+            </div>
+
+            <div className="bg-purple-50 p-4 rounded-lg">
+              <h4 className="font-bold text-purple-700 mb-2">📈 PHASE 4: SCALE (Months 10-12)</h4>
+              <div className="space-y-1 text-xs">
+                <div className="flex justify-between">
+                  <span>• Self-service analytics platform</span>
+                  <span className="text-red-600 font-bold">P0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Advanced customer lifetime value modeling</span>
+                  <span className="text-orange-500 font-bold">P1</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Multi-touch attribution & optimization</span>
+                  <span className="text-orange-500 font-bold">P1</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• Gallery partner analytics</span>
+                  <span className="text-blue-500 font-bold">P2</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>• International expansion data strategy</span>
+                  <span className="text-blue-500 font-bold">P2</span>
+                </div>
+              </div>
+              <div className="mt-2 text-center">
+                <div className="text-sm font-bold text-purple-600">Target: 4x conversion (0.3% → 1.2%)</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-100 p-4 rounded-lg">
+            <h4 className="font-bold mb-2 text-gray-700 text-center">Success Metrics & Risk Mitigation</h4>
+            <div className="grid grid-cols-3 gap-4 text-center text-sm">
+              <div>
+                <div className="font-bold text-blue-600">Success Metrics</div>
+                <div className="text-xs text-gray-600">Editorial conversion, user engagement, revenue per user, platform adoption</div>
+              </div>
+              <div>
+                <div className="font-bold text-orange-600">Risk Mitigation</div>
+                <div className="text-xs text-gray-600">Agile delivery, MVP approach, continuous feedback, phased rollouts</div>
+              </div>
+              <div>
+                <div className="font-bold text-purple-600">Dependencies</div>
+                <div className="text-xs text-gray-600">Executive support, cross-team collaboration, infrastructure, compliance</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 12: Cost of data tools and new infrastructure annually
+    {
+      title: "Infrastructure & Tools Costs",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-4xl font-bold mb-6 text-center">💻 INFRASTRUCTURE & TOOLS COSTS</h2>
+          <p className="text-center text-lg text-gray-600 mb-6">Annual investment in data infrastructure and technology stack</p>
+          
+          <div className="bg-blue-50 p-6 rounded-lg mb-6">
+            <h3 className="text-2xl font-bold mb-4 text-blue-700 text-center">Data Analytics Workflow & Technology Stack</h3>
+            
+            {/* Workflow Diagram */}
+            <div className="bg-white p-6 rounded-lg mb-4">
+              <div className="flex items-center justify-between text-sm">
+                {/* Step 1: Data Sources */}
+                <div className="flex-1 text-center">
+                  <div className="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">📱</div>
+                  <div className="font-semibold mb-1">Data Sources</div>
+                  <div className="text-xs text-gray-600">Web, Mobile, CMS</div>
+                  <div className="text-xs text-blue-500">GA4, Custom Events</div>
+                </div>
                 
-                <div style="margin-top: 15px; padding: 10px; background: #fee2e2; border-radius: 5px;">
-                    <strong>Impact:</strong> Losing $2M+ monthly in potential revenue
-                    <div style="margin-top: 10px; font-size: 0.85rem;">
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Editorial Visitors (Daily):</span>
-                            <span style="font-weight: bold;">15,000</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Converting to Purchase:</span>
-                            <span style="font-weight: bold; color: #dc2626;">45 (0.3%)</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Potential w/ 1.2% rate:</span>
-                            <span style="font-weight: bold; color: #059669;">180 (+300%)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section solution">
-                <h2>✅ The Solution</h2>
-                <ul class="bullet-list">
-                    <li>Unified data platform connecting all systems</li>
-                    <li>ML-powered content recommendations</li>
-                    <li>Real-time user journey tracking</li>
-                    <li>Automated A/B testing infrastructure</li>
-                    <li>Predictive models for purchase intent</li>
-                </ul>
+                <div className="text-2xl text-gray-400">→</div>
                 
-                <div style="margin-top: 15px; padding: 10px; background: #d1fae5; border-radius: 5px;">
-                    <strong>Goal:</strong> 4x conversion improvement in Year 1
-                    <div style="margin-top: 10px; font-size: 0.85rem;">
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Q1 Target:</span>
-                            <span style="font-weight: bold;">0.3% → 0.5%</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Q2 Target:</span>
-                            <span style="font-weight: bold;">0.5% → 0.8%</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Q3-Q4 Target:</span>
-                            <span style="font-weight: bold;">0.8% → 1.2%+</span>
-                        </div>
-                    </div>
+                {/* Step 2: Data Pipeline */}
+                <div className="flex-1 text-center">
+                  <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">⚙️</div>
+                  <div className="font-semibold mb-1">Data Pipeline</div>
+                  <div className="text-xs text-gray-600">ETL, Processing</div>
+                  <div className="text-xs text-green-500">Python, dbt</div>
                 </div>
+                
+                <div className="text-2xl text-gray-400">→</div>
+                
+                {/* Step 3: Data Warehouse */}
+                <div className="flex-1 text-center">
+                  <div className="w-16 h-16 bg-purple-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">🗄️</div>
+                  <div className="font-semibold mb-1">Data Warehouse</div>
+                  <div className="text-xs text-gray-600">Storage, Modeling</div>
+                  <div className="text-xs text-purple-500">BigQuery</div>
+                </div>
+                
+                <div className="text-2xl text-gray-400">→</div>
+                
+                {/* Step 4: ML Platform */}
+                <div className="flex-1 text-center">
+                  <div className="w-16 h-16 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">🤖</div>
+                  <div className="font-semibold mb-1">ML Platform</div>
+                  <div className="text-xs text-gray-600">Models, Training</div>
+                  <div className="text-xs text-orange-500">TensorFlow, scikit-learn</div>
+                </div>
+                
+                <div className="text-2xl text-gray-400">→</div>
+                
+                {/* Step 5: Analytics & BI */}
+                <div className="flex-1 text-center">
+                  <div className="w-16 h-16 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">📊</div>
+                  <div className="font-semibold mb-1">Analytics & BI</div>
+                  <div className="text-xs text-gray-600">Dashboards, Reports</div>
+                  <div className="text-xs text-red-500">Metabase, Jupyter</div>
+                </div>
+                
+                <div className="text-2xl text-gray-400">→</div>
+                
+                {/* Step 6: Decision Making */}
+                <div className="flex-1 text-center">
+                  <div className="w-16 h-16 bg-gray-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">🎯</div>
+                  <div className="font-semibold mb-1">Decision Making</div>
+                  <div className="text-xs text-gray-600">Business Actions</div>
+                  <div className="text-xs text-gray-500">Product, Marketing</div>
+                </div>
+              </div>
+              
+              {/* Feedback Loop */}
+              <div className="mt-4 text-center">
+                <div className="text-sm text-gray-600">↰ Continuous Feedback Loop: A/B Testing & Performance Monitoring ↴</div>
+              </div>
             </div>
+
+            <h4 className="text-xl font-bold mb-3 text-blue-600 text-center">Core Technology Investment</h4>
+            <div className="grid grid-cols-2 gap-8">
+              <div>
+                <h4 className="font-bold text-blue-600 mb-3 text-xl">Data Infrastructure</h4>
+                <div className="space-y-2 text-lg">
+                  <div className="flex justify-between">
+                    <span>Cloud Data Warehouse (Snowflake)</span>
+                    <span className="font-bold">$60K</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>ML Platform (Databricks)</span>
+                    <span className="font-bold">$45K</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Data pipeline orchestration (Airflow)</span>
+                    <span className="font-bold">$36K</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-bold text-blue-600 mb-3 text-xl">Analytics & Tools</h4>
+                <div className="space-y-2 text-lg">
+                  <div className="flex justify-between">
+                    <span>Business Intelligence (Looker)</span>
+                    <span className="font-bold">$42K</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>A/B Testing Platform (Optimizely)</span>
+                    <span className="font-bold">$36K</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Data quality monitoring (Monte Carlo)</span>
+                    <span className="font-bold">$24K</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-6 mb-6">
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h4 className="font-bold text-green-700 mb-3 text-xl text-center">Total MVP Stack</h4>
+              <div className="space-y-2 text-lg">
+                <div className="flex justify-between">
+                  <span>Core Infrastructure</span>
+                  <span className="font-bold">$141K</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Analytics & Tools</span>
+                  <span className="font-bold">$102K</span>
+                </div>
+                <div className="border-t pt-2">
+                  <div className="flex justify-between font-bold text-green-600">
+                    <span>Total:</span>
+                    <span>$243K</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h4 className="font-bold text-orange-700 mb-3 text-xl text-center">MVP Benefits</h4>
+              <div className="space-y-2 text-sm">
+                <div>• <strong>Quick setup:</strong> 2-3 months vs 6+ months</div>
+                <div>• <strong>Lower risk:</strong> Proven open-source tools</div>
+                <div>• <strong>Scalable:</strong> Upgrade components as needed</div>
+                <div>• <strong>Cost effective:</strong> 60% savings vs enterprise stack</div>
+              </div>
+            </div>
+
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h4 className="font-bold text-purple-700 mb-3 text-xl text-center">Upgrade Path</h4>
+              <div className="space-y-2 text-sm">
+                <div>• <strong>Phase 2:</strong> Snowflake, Databricks</div>
+                <div>• <strong>Phase 3:</strong> Advanced ML platforms</div>
+                <div>• <strong>Phase 4:</strong> Enterprise BI solutions</div>
+                <div>• <strong>Total future:</strong> $270K when needed</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <h4 className="font-bold mb-4 text-gray-700 text-2xl text-center">Total MVP Infrastructure Investment</h4>
+            <div className="grid grid-cols-4 gap-6 text-center">
+              <div className="bg-white p-4 rounded border">
+                <div className="text-2xl font-bold text-blue-600">$141K</div>
+                <div className="text-lg">Core Infrastructure</div>
+                <div className="text-gray-500">58% of total</div>
+              </div>
+              <div className="bg-white p-4 rounded border">
+                <div className="text-2xl font-bold text-green-600">$102K</div>
+                <div className="text-lg">Analytics & Tools</div>
+                <div className="text-gray-500">42% of total</div>
+              </div>
+              <div className="bg-white p-4 rounded border">
+                <div className="text-2xl font-bold text-purple-600">$243K</div>
+                <div className="text-lg font-bold">Total Annual</div>
+                <div className="text-gray-500">MVP infrastructure cost</div>
+              </div>
+              <div className="bg-white p-4 rounded border">
+                <div className="text-2xl font-bold text-orange-600">40%</div>
+                <div className="text-lg font-bold">Cost Savings</div>
+                <div className="text-gray-500">vs enterprise stack</div>
+              </div>
+            </div>
+          </div>
         </div>
+      ),
+    },
 
-        <div class="metrics">
-            <div class="metric">
-                <div class="metric-value">0.3%</div>
-                <div class="metric-label">Current Conversion</div>
-            </div>
-            <div class="metric">
-                <div class="metric-value">1.2%</div>
-                <div class="metric-label">Year 1 Target</div>
-            </div>
-            <div class="metric">
-                <div class="metric-value">$25M</div>
-                <div class="metric-label">Revenue Opportunity</div>
-            </div>
-        </div>
-
-        <div style="background: #f8f8f8; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #059669;">
-            <h3 style="margin-bottom: 15px; color: #059669;">🛠️ Specific Solution Tools</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div style="padding: 10px; background: white; border-radius: 5px; border: 1px solid #e0e0e0;">
-                    <strong style="color: #6b46c1;">Content-Commerce Bridge</strong>
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">Real-time artwork suggestions within articles</div>
-                </div>
-                <div style="padding: 10px; background: white; border-radius: 5px; border: 1px solid #e0e0e0;">
-                    <strong style="color: #6b46c1;">Journey Mapping Algorithm</strong>
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">Track 15+ touchpoints per user session</div>
-                </div>
-                <div style="padding: 10px; background: white; border-radius: 5px; border: 1px solid #e0e0e0;">
-                    <strong style="color: #6b46c1;">Artist Discovery Index</strong>
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">Score interest based on reading patterns</div>
-                </div>
-                <div style="padding: 10px; background: white; border-radius: 5px; border: 1px solid #e0e0e0;">
-                    <strong style="color: #6b46c1;">Abandonment Recovery</strong>
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">Re-engage users who left articles</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="team-budget">
-            <div class="team-list">
-                <h3 style="margin-bottom: 15px;">Team & Budget Allocation</h3>
-                <div class="team-member">
-                    <span>Data Science Lead</span>
-                    <span>$180K</span>
-                </div>
-                <div class="team-member">
-                    <span>Senior Data Engineer</span>
-                    <span>$170K</span>
-                </div>
-                <div class="team-member">
-                    <span>ML Engineer</span>
-                    <span>$160K</span>
-                </div>
-                <div class="team-member">
-                    <span>Analytics Engineer</span>
-                    <span>$140K</span>
-                </div>
-                <div class="team-member">
-                    <span>Product Analyst</span>
-                    <span>$130K</span>
-                </div>
-                <div class="team-member" style="margin-top: 10px; padding-top: 10px; border-top: 2px solid #333; font-size: 0.9rem;">
-                    <span>Staffing (80%)</span>
-                    <span>$780K</span>
-                </div>
-                <div class="team-member" style="font-size: 0.9rem;">
-                    <span>Infrastructure (10%)</span>
-                    <span>$100K</span>
-                </div>
-                <div class="team-member" style="font-size: 0.9rem;">
-                    <span>Tools & Training (7%)</span>
-                    <span>$70K</span>
-                </div>
-                <div class="team-member" style="font-size: 0.9rem;">
-                    <span>Contingency (3%)</span>
-                    <span>$30K</span>
-                </div>
-                <div class="team-member" style="border-top: 2px solid #333;">
-                    <span><strong>Total Investment</strong></span>
-                    <span><strong>$980K</strong></span>
-                </div>
-            </div>
-
-            <div class="roi-box">
-                <h3>Expected Returns</h3>
-                <div class="roi-main">3.6x</div>
-                <div>First Year ROI</div>
-                <div style="margin-top: 15px; font-size: 1.2rem;">$3.5M Revenue</div>
-                <div style="font-size: 0.9rem;">9-month payback</div>
-                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3);">
-                    <strong>North Star Metric:</strong>
-                    <div style="font-size: 0.85rem; margin-top: 5px;">Editorial → Marketplace Conversion Rate</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="timeline">
-            <h3 style="margin-bottom: 15px;">Implementation Timeline & Deliverables</h3>
-            <div class="phase">
-                <div class="phase-time">Months 1-3</div>
+    // Slide 13: Risks
+    {
+      title: "Risk Assessment",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-4xl font-bold mb-4 text-center text-orange-600">⚠️ HONEST RISK ASSESSMENT</h2>
+          <p className="text-center text-lg text-gray-600 mb-4">Critical evaluation of challenges and mitigation strategies</p>
+          
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="bg-red-50 p-4 rounded-lg">
+              <h3 className="font-bold text-lg mb-3 text-red-700">High-Risk Factors</h3>
+              <div className="space-y-2 text-sm">
                 <div>
-                    <strong>Foundation:</strong> Team hiring, infrastructure setup, baseline metrics
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
-                        → Deliverable: User journey tracking dashboard
-                    </div>
+                  <strong>Timeline Optimism:</strong>
+                  <div className="text-xs text-gray-600">• 12-month 0→4 maturity transformation is aggressive</div>
+                  <div className="text-xs text-gray-600">• Industry average: 18-24 months for similar scope</div>
                 </div>
-            </div>
-            <div class="phase">
-                <div class="phase-time">Months 4-6</div>
                 <div>
-                    <strong>Quick Wins:</strong> Data integration, A/B testing, basic personalization
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
-                        → Deliverable: 0.3% → 0.6% conversion improvement
-                    </div>
+                  <strong>Hiring Challenge:</strong>
+                  <div className="text-xs text-gray-600">• 5 specialized data roles in 8 months</div>
+                  <div className="text-xs text-gray-600">• Current market: 4-6 months per quality hire</div>
                 </div>
-            </div>
-            <div class="phase">
-                <div class="phase-time">Months 7-9</div>
                 <div>
-                    <strong>ML Scale:</strong> Deploy recommendation models, advanced personalization
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
-                        → Deliverable: 0.6% → 0.9% conversion, $1.5M revenue impact
-                    </div>
+                  <strong>Technical Complexity:</strong>
+                  <div className="text-xs text-gray-600">• Real-time ML at scale is challenging</div>
+                  <div className="text-xs text-gray-600">• Editorial-marketplace integration unknown complexity</div>
                 </div>
+              </div>
             </div>
-            <div class="phase">
-                <div class="phase-time">Months 10-12</div>
-                <div>
-                    <strong>Optimize:</strong> Scale features, social integration, predictive models
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
-                        → Deliverable: 1.2%+ conversion target achieved, $3.5M annual run rate
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
-            <div class="section" style="border-top: 3px solid #f59e0b;">
-                <h3 style="margin-bottom: 15px;">⚠️ Key Risks</h3>
-                <ul class="bullet-list" style="font-size: 0.95rem;">
-                    <li><strong>Talent Acquisition (High - 40%):</strong> 180-day avg hire time for senior data roles</li>
-                    <li><strong>Data Quality (Medium - 30%):</strong> 5 disconnected systems, 40% user journeys untracked</li>
-                    <li><strong>Integration (Medium - 25%):</strong> Legacy CMS from 2018, limited APIs</li>
-                    <li><strong>Privacy (Low - 10%):</strong> CCPA/GDPR compliance gaps</li>
-                    <li><strong>ROI Timeline (Medium - 20%):</strong> Art market seasonality affects conversions</li>
+            <div className="bg-yellow-50 p-4 rounded-lg">
+              <h3 className="font-bold text-lg mb-3 text-yellow-700">Mitigation Strategies</h3>
+              <div className="space-y-2 text-sm">
+                <div>
+                  <strong>Phased Approach:</strong>
+                  <div className="text-xs text-gray-600">• MVP delivery every 3 months</div>
+                  <div className="text-xs text-gray-600">• Early value demonstration with basic improvements</div>
+                </div>
+                <div>
+                  <strong>Flexible Hiring:</strong>
+                  <div className="text-xs text-gray-600">• Start with 2 core roles, scale gradually</div>
+                  <div className="text-xs text-gray-600">• Consider contractors for immediate capacity</div>
+                </div>
+                <div>
+                  <strong>Technical De-risking:</strong>
+                  <div className="text-xs text-gray-600">• Proof-of-concept before full implementation</div>
+                  <div className="text-xs text-gray-600">• Leverage existing tools where possible</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 p-4 rounded-lg mb-4">
+            <h3 className="font-bold text-lg mb-3 text-blue-700 text-center">Conservative Scenario Planning</h3>
+            <div className="grid grid-cols-3 gap-4 text-sm">
+              <div>
+                <h4 className="font-bold text-blue-600">Optimistic (40% chance)</h4>
+                <ul className="text-xs space-y-1">
+                  <li>• 4x conversion improvement (1.2%)</li>
+                  <li>• $25M revenue impact</li>
+                  <li>• 12-month timeline</li>
+                  <li>• Full team hired smoothly</li>
                 </ul>
-            </div>
-            <div class="section" style="border-top: 3px solid #3b82f6;">
-                <h3 style="margin-bottom: 15px;">🛡️ Mitigation Strategies</h3>
-                <ul class="bullet-list" style="font-size: 0.95rem;">
-                    <li><strong>Talent:</strong> Pre-approved recruiters, 20% signing bonuses, remote-first policy</li>
-                    <li><strong>Data:</strong> Google Tag Manager deployment Week 1, unified tracking by Month 2</li>
-                    <li><strong>Integration:</strong> Read-only APIs first, webhooks for real-time data</li>
-                    <li><strong>Privacy:</strong> Legal review complete, consent management platform ready</li>
-                    <li><strong>ROI:</strong> Weekly cohort analysis, 48-hour experiment cycles</li>
+              </div>
+              <div>
+                <h4 className="font-bold text-blue-600">Realistic (50% chance)</h4>
+                <ul className="text-xs space-y-1">
+                  <li>• 2.5x conversion improvement (0.75%)</li>
+                  <li>• $15M revenue impact</li>
+                  <li>• 15-month timeline</li>
+                  <li>• Some hiring delays</li>
                 </ul>
+              </div>
+              <div>
+                <h4 className="font-bold text-blue-600">Conservative (10% chance)</h4>
+                <ul className="text-xs space-y-1">
+                  <li>• 2x conversion improvement (0.6%)</li>
+                  <li>• $12M revenue impact</li>
+                  <li>• 18-month timeline</li>
+                  <li>• Major technical challenges</li>
+                </ul>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <div class="recommendation" style="position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 10px; right: 20px; font-size: 3rem; opacity: 0.1;">📈</div>
-            <h3>Recommendation</h3>
-            <p>Despite identified risks, the opportunity significantly outweighs challenges. Approve immediate formation 
-            of Data Analytics Department to capture $25M+ revenue opportunity and establish Artsy as the leader in 
-            AI-powered art commerce.</p>
+          <div className="bg-green-50 p-4 rounded-lg mb-4">
+            <h3 className="font-bold text-lg mb-2 text-green-700 text-center">Why Risk is Acceptable</h3>
+            <div className="grid grid-cols-3 gap-4 text-center text-sm">
+              <div>
+                <div className="text-xl font-bold text-green-600">Even Conservative = Win</div>
+                <div className="text-xs text-gray-600">$12M revenue vs $1M cost</div>
+                <div className="text-xs text-gray-600">1100% ROI minimum</div>
+              </div>
+              <div>
+                <div className="text-xl font-bold text-blue-600">Downside Protection</div>
+                <div className="text-xs text-gray-600">Phased approach allows course correction</div>
+                <div className="text-xs text-gray-600">Stop/pivot after each phase</div>
+              </div>
+              <div>
+                <div className="text-xl font-bold text-purple-600">Strategic Necessity</div>
+                <div className="text-xs text-gray-600">Staying at maturity level 0 is highest risk</div>
+                <div className="text-xs text-gray-600">Competitors will surpass us</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-100 p-3 rounded-lg text-center">
+            <div className="text-lg font-bold text-gray-700 mb-1">
+              Bottom Line: Even with realistic risks, this investment has exceptional risk-adjusted returns
+            </div>
+            <div className="text-sm text-gray-600">
+              The risk of inaction (staying at 18x conversion underperformance) far exceeds execution risk
+            </div>
+          </div>
         </div>
+      ),
+    },
+
+    // Slide 14: ROI
+    {
+      title: "ROI Analysis",
+      content: (
+        <div className="flex flex-col h-full">
+          <h2 className="text-5xl font-bold mb-8 text-center text-green-600">💰 EXTRAORDINARY ROI</h2>
+          
+          <div className="grid grid-cols-2 gap-8 mb-8">
+            <div className="bg-red-50 p-6 rounded-lg">
+              <h3 className="font-bold text-2xl mb-4 text-red-700">Total Investment</h3>
+              <div className="space-y-3 text-lg">
+                <div className="flex justify-between">
+                  <span>Personnel (5 people)</span>
+                  <span className="font-bold">$888K</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>MVP Infrastructure & Tools</span>
+                  <span className="font-bold">$243K</span>
+                </div>
+                <div className="border-t pt-3 mt-4">
+                  <div className="flex justify-between text-xl font-bold">
+                    <span>Total Annual Investment</span>
+                    <span className="text-red-600">$1,131K</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="font-bold text-2xl mb-4 text-green-700">Revenue Returns</h3>
+              <div className="space-y-3 text-lg">
+                <div className="flex justify-between">
+                  <span>Editorial conversion uplift</span>
+                  <span className="font-bold">$18M</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>User retention improvement</span>
+                  <span className="font-bold">$4M</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Cross-selling optimization</span>
+                  <span className="font-bold">$2M</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Operational efficiencies</span>
+                  <span className="font-bold">$1M</span>
+                </div>
+                <div className="border-t pt-3 mt-4">
+                  <div className="flex justify-between text-xl font-bold">
+                    <span>Total Annual Returns</span>
+                    <span className="text-green-600">$25M</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-3 gap-6 mb-6">
+            <div className="text-center bg-blue-100 p-6 rounded-lg">
+              <div className="text-4xl font-bold text-blue-600">2110%</div>
+              <div className="text-xl font-semibold">ROI Year 1</div>
+              <div className="text-sm text-gray-600">($25M - $1.1M) / $1.1M</div>
+            </div>
+            <div className="text-center bg-purple-100 p-6 rounded-lg">
+              <div className="text-4xl font-bold text-purple-600">3 weeks</div>
+              <div className="text-xl font-semibold">Payback Period</div>
+              <div className="text-sm text-gray-600">Based on weekly revenue impact</div>
+            </div>
+            <div className="text-center bg-green-100 p-6 rounded-lg">
+              <div className="text-4xl font-bold text-green-600">$23.9M</div>
+              <div className="text-xl font-semibold">Net Profit Year 1</div>
+              <div className="text-sm text-gray-600">Pure profit after all costs</div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 p-6 rounded-lg mb-4">
+            <h4 className="font-bold mb-4 text-yellow-700 text-2xl text-center">Conservative ROI Scenarios</h4>
+            <div className="grid grid-cols-3 gap-6 text-center">
+              <div>
+                <div className="text-2xl font-bold text-green-600">Optimistic</div>
+                <div className="text-sm text-gray-600">4x conversion (1.2%)</div>
+                <div className="text-xl font-bold">2110% ROI</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-blue-600">Realistic</div>
+                <div className="text-sm text-gray-600">2.5x conversion (0.75%)</div>
+                <div className="text-xl font-bold">1227% ROI</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-orange-600">Conservative</div>
+                <div className="text-sm text-gray-600">2x conversion (0.6%)</div>
+                <div className="text-xl font-bold">961% ROI</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gray-100 p-4 rounded-lg text-center">
+            <div className="text-2xl font-bold text-gray-700 mb-2">
+              Even in the most conservative scenario, we achieve 961% ROI
+            </div>
+            <div className="text-lg text-gray-600">
+              This represents one of the highest-return investments Artsy could make
+            </div>
+          </div>
+        </div>
+      ),
+    },
+
+    // Slide 15: Thank you
+    {
+      title: "THANK YOU!",
+      content: (
+        <div className="flex flex-col justify-center h-full text-center">
+          <div className="mb-8">
+            <h1 className="text-6xl font-bold text-purple-800 mb-6">THANK YOU</h1>
+            <div className="text-3xl text-gray-600 mb-8">
+              Ready to unlock Artsy's $25M data opportunity
+            </div>
+          </div>
+          
+          <div className="bg-red-50 p-8 rounded-lg mb-8">
+            <h3 className="text-2xl font-bold mb-6 text-red-700">THE OPPORTUNITY WON'T WAIT</h3>
+            <div className="grid grid-cols-3 gap-6 text-center">
+              <div>
+                <div className="text-4xl font-bold text-red-600 mb-2">18X</div>
+                <div className="text-xl font-semibold">Conversion Gap</div>
+                <div className="text-lg text-gray-600">Getting worse daily</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-green-600 mb-2">$25M</div>
+                <div className="text-xl font-semibold">Annual Opportunity</div>
+                <div className="text-lg text-gray-600">Ready to capture</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-purple-600 mb-2">2110%</div>
+                <div className="text-xl font-semibold">ROI Potential</div>
+                <div className="text-lg text-gray-600">Exceptional returns</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-green-50 p-8 rounded-lg mb-8">
+            <h3 className="text-2xl font-bold mb-6 text-green-700">NEXT STEPS</h3>
+            <div className="grid grid-cols-2 gap-8">
+              <div>
+                <h4 className="font-bold mb-3 text-green-600 text-xl">What I Need (Next 30 Days)</h4>
+                <ul className="space-y-2 text-lg text-left">
+                  <li>• <strong>$1.13M annual budget approval</strong></li>
+                  <li>• <strong>Executive sponsorship & alignment</strong></li>
+                  <li>• <strong>Hiring authorization for data team</strong></li>
+                  <li>• <strong>Cross-functional collaboration commitment</strong></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-bold mb-3 text-green-600 text-xl">What You Get</h4>
+                <ul className="space-y-2 text-lg text-left">
+                  <li>• <strong>Weekly progress updates</strong></li>
+                  <li>• <strong>Monthly milestone reviews</strong></li>
+                  <li>• <strong>$25M revenue impact tracking</strong></li>
+                  <li>• <strong>Enterprise data foundation for future</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-yellow-50 p-6 rounded-lg mb-6">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-red-600 mb-3">
+                Every day we wait, we lose $68,493 in potential revenue
+              </div>
+              <div className="text-2xl text-gray-700">
+                The question isn't whether we should do this. It's whether we can afford not to.
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-2xl font-bold text-purple-600">
+            Data Analytics Department • Ready to Transform Artsy's Revenue
+          </div>
+        </div>
+      ),
+    },
+  ];
+  
+  return (
+    <div className="h-screen flex flex-col bg-white">
+      <div className="flex-1 overflow-y-auto p-6">
+        {slides[currentSlide].content}
+      </div>
+      
+      <div className="p-3 border-t flex justify-between items-center bg-gray-50">
+        <button 
+          onClick={goToPrevSlide}
+          disabled={currentSlide === 0}
+          className={`px-4 py-2 rounded-lg ${currentSlide === 0 ? 'bg-gray-200 text-gray-500' : 'bg-purple-500 text-white'}`}
+        >
+          ← Previous
+        </button>
+        
+        <div className="flex items-center">
+          <span className="text-sm mr-3 text-gray-500">
+            Slide {currentSlide + 1} of {slides.length} | Executive Presentation
+          </span>
+          <div className="flex space-x-1">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full ${index === currentSlide ? 'bg-purple-500' : 'bg-gray-300'}`}
+              >
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        <button 
+          onClick={goToNextSlide}
+          disabled={currentSlide === slides.length - 1}
+          className={`px-4 py-2 rounded-lg ${currentSlide === slides.length - 1 ? 'bg-gray-200 text-gray-500' : 'bg-purple-500 text-white'}`}
+        >
+          Next →
+        </button>
+      </div>
     </div>
-</body>
-</html>
+  );
+};
+
+export default ArtsyDataProposal;
